@@ -22,26 +22,26 @@ public class Compas {
 	 * @param instructions Instructions received
 	 * @throws BadRoverLocationException Thrown in case instructions leads to a Bad location
 	 */
-	public static void updateLocation(Location currentLocation, String instructions) throws BadRoverLocationException {
-		int instructionsLength = instructions.length();
+	public static void updateLocation(Location currentLocation, String instructions) {
+		instructions.chars().forEach(i -> processInstruction((char)i, currentLocation));
+	}
+	
+	private static void processInstruction(char instruction, Location currentLocation) {
 		Direction direction = currentLocation.getDirection();
-		for (int index = 0; index < instructionsLength; index ++) {
-			char instruction = instructions.charAt(index);
-			switch (instruction) {
-				case LEFT_MOVE:
-					direction = computeDirection(direction, instruction);
-					currentLocation.setDirection(direction);
-					break;
-				case RIGHT_MOVE:
-					direction = computeDirection(direction, instruction);
-					currentLocation.setDirection(direction);
-					break;
-				case WALK:
-					moveAhead(currentLocation);
-					break;
-				default:
-					throw new BadRoverLocationException("Instruction not recognized : " + instruction);
-			}
+		switch (instruction) {
+			case LEFT_MOVE:
+				direction = computeDirection(direction, instruction);
+				currentLocation.setDirection(direction);
+				break;
+			case RIGHT_MOVE:
+				direction = computeDirection(direction, instruction);
+				currentLocation.setDirection(direction);
+				break;
+			case WALK:
+				moveAhead(currentLocation);
+				break;
+			default:
+				throw new BadRoverLocationException("Instruction not recognized : " + instruction);
 		}
 	}
 	
@@ -74,7 +74,7 @@ public class Compas {
 			} else if (nextMove.get().getValue().equalsIgnoreCase("INCREASE-Y")) {
 				location.increaseYCoordinate();
 			}
-		}
+		} 
 	}
 
 }

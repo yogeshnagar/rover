@@ -72,7 +72,7 @@ public class FlightManager {
 	 * @param initialLocations
 	 * @throws BadRoverLocationException
 	 */
-	private void prepareRovers(List<IRover> rovers, List<String> initialLocations) throws BadRoverLocationException {
+	private void prepareRovers(List<IRover> rovers, List<String> initialLocations) {
 		List<String> locationList = new ArrayList<String>(initialLocations);
 		int index = 0;
 		for (IRover rover: rovers) {

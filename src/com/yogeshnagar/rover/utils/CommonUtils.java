@@ -9,6 +9,7 @@ import java.io.InputStreamReader;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Properties;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 import com.yogeshnagar.rover.common.Direction;
@@ -19,9 +20,9 @@ import com.yogeshnagar.rover.common.exceptions.ProcessingException;
 
 public class CommonUtils {
 	
+	private static AtomicInteger counter = new AtomicInteger(1);
+	
 	private static Map<String, Move> moves = null;
-
-	private static int counter = 0;
 	
 	private static BufferedReader consoleInput = new BufferedReader(new InputStreamReader(System.in));
 	
@@ -29,8 +30,8 @@ public class CommonUtils {
 	 * Generates a new Rover Id
 	 * @return Rover Id
 	 */
-	public synchronized static String getRoverId() {
-		return ROVER_NAME_PREFIX + (++ counter);
+	public static String getRoverId() {
+		return ROVER_NAME_PREFIX + counter.getAndIncrement();
 	}
 	
 	/**
